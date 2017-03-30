@@ -1,6 +1,6 @@
 <?php
 //*** подключение выполняеться в ооп стиле, да и весь установщик базы написан в ооп
-$link = new mysqli("127.0.0.1", "mishele", "1437");
+$link = new mysqli("localhost", "user", "password");
 
 //require_once('db.php');
 //*** проверка подключения
