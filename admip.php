@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <title><?php $title=$_SERVER['PHP_SELF']; echo $title;?></title>
-<link rel="stylesheet" href="../phpipbot/css/ipbot.css">   
+<link rel="stylesheet" href="css/ipbot.css">   
 </head>
 <body>
 <h1>PHPipbot</h1>
