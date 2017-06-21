@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <title><?php $title=$_SERVER['PHP_SELF']; echo $title;?></title>
-<link rel="stylesheet" href="../phpipbot/css/ipbot.css">   
+<link rel="stylesheet" href="css/ipbot.css">
 </head>
 <body>
 <h1>PHPipbot</h1>
@@ -12,7 +12,10 @@
 <hr/>
 
 <!-- кнопка выхода из сесии admin для phpipbot -->
-<p><a href="/phpipbot/admip.php?do=logout">Выход</a></p>
+<!--<p><a href="<?php $path = pathinfo($_SERVER['PHP_SELF']); echo $path['dirname'];?>/admip.php?do=logout">Выход</a></p>-->
+<p><a href="admip.php?do=logout">Выход</a></p>
+<!-- -->
+
 <!-- -->
 
 <?php 
@@ -23,13 +26,13 @@ $start = isset($_GET['start']) ? intval( $_GET['start'] ) : 0 ;
 //*** лимит для выборки строк с бд, отвечает за вывод строк таблицы на странице отчета бота
 $limit = 5;
 //*** запрос на подсчёт количества строк в базе с лимитом выборки заданым выше
-$result = $link->query("SELECT SQL_CALC_FOUND_ROWS * FROM staffip LIMIT $start , $limit") or die("Query failed: " . $link->error);
-//*** Составляем запрос на подсчёт количество записей в базе
+$result = $link->query("SELECT SQL_CALC_FOUND_ROWS * FROM userip_log LIMIT $start , $limit") or die("Query failed: " . $link->error);
+//*** Составляем запрос на подсчёт количество записей в базе, который записывается в масив count прямо в базе, и возвращается переменной в виде масива.
 $result_found_rows = $link->query("SELECT FOUND_ROWS() as `count`") or die("немогу сделать запрос2 :( : " . $link->error);
 
 echo "<br>";
 //echo '<div style="float: left; ">';
-echo '<table style="width: 600px; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; border: 1px solid #AAAAAA; font-size: 12px; box-shadow: 10px 10px 5px #777777; ">' . "\r\n";
+echo '<table style="width: 800px; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; border: 1px solid #AAAAAA; font-size: 12px; box-shadow: 10px 10px 5px #777777; ">' . "\r\n";
 echo '<caption style="background-color:#FFFFF0; font-weight:bold; border:1px solid #BBBBBB; border-top-left-radius:8px; border-top-right-radius:8px;">Айпи заходящих на главную страницу <br /></caption>' . "\r\n";
 echo '<tbody>' . "\r\n";
 
@@ -47,7 +50,7 @@ while ($row = $result->fetch_assoc()) {
 	echo '<td style="text-align:left; padding:4px 20px 4px 20px;">' . $row['ip'] . '</td>';
    echo '<td style="text-align:left; padding:4px 10px 4px 10px;">' . $row['useragent'] . '</td>';	
 	echo '<td style="text-align:left; padding:4px 10px 4px 10px;">' . $row['referrer'] . '</td>';	
-	echo '<td style="text-align:left; padding:4px 20px 4px 20px;">' . $row['time'] . '</td>';
+	echo '<td style="text-align:left; padding:4px 20px 4px 20px;">' . $row['access_time'] . '</td>';
 	echo '</tr>' . "\r\n";
 //*** просто проверка значений в масиве для отладки
 //$d = var_dump($row);
@@ -69,31 +72,30 @@ while ($row = $result_found_rows->fetch_assoc()) {
    echo '<tr style="background-color:#F0F0F0;">';	
 	echo '<td style="text-align: right; padding: 4px 14px 4px 4px; font-weight: bold; ">' . $row['count'] . '</td>';	
 	echo '</tr>' . "\r\n";
-//$d0 = var_dump($row);
+//$d0 = var_dump($result_found_rows);
 //echo "<pre>" . $d0. "</pre>";
-//}
 echo '</tbody>';
 echo '</table>'."\n";
 //echo '</div>';
 
 //*** начинаеться пагинатор TODO! дописать пагинатор так чтобы страницы выводил блоками в одну линию
-$allItems = 0;
+//$allItems = 0;
 $html = NULL;
 $pageCount = 0;			
-			$rw = $row['count'];
-			//*** Здесь округляем в большую сторону, потому что остаток
-         //*** от деления - кол-во страниц тоже нужно будет показать
-         //*** на ещё одной странице.
-			$pageCount = ceil($rw / $limit);
-			//*** Начинаем с нуля! Это даст нам правильные смещения для БД
-			for( $i = 0; $i < $pageCount; $i++ ) {   
-			    
-			    //*** Здесь ($i * $limit) - вычисляет нужное для каждой страницы  смещение,
-			    //*** а ($i + 1) - для того что бы нумерация страниц начиналась с 1, а не с 0
-			    //*** если перед ли поставить "\n". то возникает интересный глюк ефект в меню пагинатора
-			    $html .= '<li><a href="admip.php?start=' . ($i * $limit)  . '">' . ($i + 1).'</a></li>';
-			}
- }
+    $rw = $row['count'];
+    //*** Здесь округляем в большую сторону, потому что остаток
+    //*** от деления - кол-во страниц тоже нужно будет показать
+    //*** на ещё одной странице.
+    $pageCount = ceil($rw / $limit);
+    //*** Начинаем с нуля! Это даст нам правильные смещения для БД
+    for( $i = 0; $i < $pageCount; $i++ ) {
+
+        //*** Здесь ($i * $limit) - вычисляет нужное для каждой страницы  смещение,
+        //*** а ($i + 1) - для того что бы нумерация страниц начиналась с 1, а не с 0
+        //*** если перед ли поставить "\n". то возникает интересный глюк ефект в меню пагинатора
+        $html .= '<li><a href="admip.php?start=' . ($i * $limit)  . '">' . ($i + 1).'</a></li>';
+    }
+}
 //*** Собственно выводим на экран:
 echo '<div id="art"><ul id="pagination">' . $html . '</ul></div>';
 echo '<hr>';

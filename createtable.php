@@ -1,39 +1,35 @@
-
 <?php
 //*** Вставляем файл подключения к бд MySQL
 require_once('db.php');
 //*** формируемм запрос на добавление таблиц в базу
-$create_table = "create table staffip(id INT(10) NOT NULL AUTO_INCREMENT, 
-                 ip VARCHAR(15) NOT NULL, 
-                 useragent VARCHAR(255) NOT NULL, 
-                 referrer VARCHAR(255) NOT NULL, 
-                 time TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-                 PRIMARY KEY (id))";
+$create_table = "CREATE TABLE `userip_logtest`(
+                 `id` INT(10) NOT NULL AUTO_INCREMENT,
+                 `ip` VARCHAR(15) NOT NULL,
+                 `useragent` VARCHAR(255) NOT NULL,
+                 `referrer` VARCHAR(255) NOT NULL,
+                 `access_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                 PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 //*** выбираем базу данных для вставки таблиц
 //$link->select_db('ipbot0');
 $link->query($create_table);
-//*** проверка чи создались таблицы в базе
+
+//*** проверка создались ли таблицы в базе
 if($link->error) {
-	die("Ошибка при добавлении таблицы: \n" . $link->error);
-   }
-echo "Таблица <b style='color:blue'>staffip</b> успешно добавлена <br><hr>\n";
-
-
-
+    echo "Таблица 'userip_log' уже существует: (" . $link->errno .") " . $link->error . "<br><hr>\n";
+   // echo "Таблица 'userip_log' уже существует: ($link->errno) $link->error<br><hr>\n";
+} else {
+    echo "Таблица <b style='color:blue'>userip_log</b> успешно добавлена <br><hr>\n";
+}
 
 //*** отображение полей таблицы
-if ($result = $link->query("SHOW COLUMNS FROM staffip")) {
-    while($row = $result->fetch_row()){
+$result = $link->query("SHOW COLUMNS FROM userip_logtest");
+while($row = $result->fetch_row()){
     printf("<span style='color:blue'><b>%s:</b>  %s %s %s %s %s</span>\n<br />", $row[0], $row[1], $row[2], $row[3], $row[4], $row[5]);
- } //*** очищаем результирующий набор
-    $result->close();
 }
-$link->close();
-echo "<hr>";
-
-
-
+//*** очищаем результирующий набор
+$result->free();
 
 //*** закрываем подключение к бд
 $link->close();
+echo "<hr>";
 ?>
