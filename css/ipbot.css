@@ -85,13 +85,13 @@ div.error {
 
 /*** для форм входа и хеширования пароля ***/
 
-.body{
+/*.body{
 	padding-left:48%;
 	padding-top:10%;
 	font-family:Verdana,Arial,Helvetica,sans-serif;
 	font-size:1em;
 	color:#555753;
-}
+}*/
 .input{
 	display:block;
 	width:175px;
@@ -109,12 +109,13 @@ br {
 	/*clear:left;*/
 }
 /*** для анимации кнопки, размер задается в свойствах самой кнопки ***/
-.buttonSubmit {
+/***.buttonSubmit {
 	padding-right:20px;
 }
 br{
 	clear:left;
-}
+}***/
+
 /*** для анимации кнопки, размер задается в свойствах самой кнопки ***/
 .buttonSubmit{
 	color:white;
@@ -125,11 +126,8 @@ br{
 /*	width:140px;*/
 	margin-left:95px;/* Отступ кнопки с лева от края формы*/
 }
-.buttonSubmitRoll {
-	border-radius:5px 5px 5px 5px;
-/*	width:140px;*/
-	margin-left:95px;/* Отступ кнопки с лева от края формы*/
-}
+
+
 .buttonSubmitRoll{
 	color:white;
 	background-color:#555753;
@@ -141,19 +139,9 @@ br{
 	margin-left:95px;/* Отступ кнопки с лева от края формы*/
 
 }
-.fieldset {
-	width:350px; /* ширина поля fieldset*/
-	/*margin-left:-200px;*/
-    margin:100px auto;
-
-    padding:10px;
-    
-    /*color:#555753; /*** цвет текста,пускай пока будет тот что задан в body глобально*/
-    color:#424E5A;
-
 .fieldset{
 	width:350px; /* ширина поля fieldset*/
-	margin-left:-200px;	
+	margin:100px auto;	
 	border:none;
     border-radius: 5px 5px;
 	background-color:#EEEEEE;/*#F6F6F6;*/

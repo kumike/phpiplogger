@@ -8,13 +8,13 @@ if($_SESSION['admin']){
 $admin = 'admin'; //*** тут подставить вашего пользователя, по умолчанию admin
 $pass = 'a029d0df84eb5549c641e04a9ef389e5'; //*** тут в кавычки вставить код полученый на станице hashPass
 
-if($_POST['submit']){
-	if($admin == $_POST['user'] AND $pass == md5($_POST['pass'])){
-		$_SESSION['admin'] = $admin;
-		header("Location: admip.php");
-		exit;
-	}else echo '<div style="color:red;font-weight:bold;margin-left:-200px;">Логин или пароль неверны!</div>';
-}
+/*if($_POST['submit']){*/
+	//if($admin == $_POST['user'] AND $pass == md5($_POST['pass'])){
+		//$_SESSION['admin'] = $admin;
+		//header("Location: admip.php");
+		//exit;
+	//} else echo '<div style="color:red;font-weight:bold;margin-left:-200px;">Логин или пароль неверны!</div>';
+/*}*/
 ?>
 <!DOCTYPE html>
 <html>
