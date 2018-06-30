@@ -1,1 +1,1 @@
-# phpipbot
+# phpiplogger

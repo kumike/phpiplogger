@@ -1,4 +1,4 @@
-<?php require_once ("auth.php");?>
+<?php require_once 'auth.php';?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,21 +6,20 @@
 <title><?php $title=$_SERVER['PHP_SELF']; echo $title;?></title>
 <link rel="stylesheet" href="css/ipbot.css">
 </head>
-<body>
+<body class='body'>
+<!--<div class='main'>-->
 <h1>PHPipbot</h1>
-
-<hr/>
+<hr>
 
 <!-- кнопка выхода из сесии admin для phpipbot -->
 <!--<p><a href="<?php $path = pathinfo($_SERVER['PHP_SELF']); echo $path['dirname'];?>/admip.php?do=logout">Выход</a></p>-->
 <p><a href="admip.php?do=logout">Выход</a></p>
-<!-- -->
 
 <!-- -->
 
 <?php 
 //*** Вставляем файл подключения к бд MySQL
-require_once('db.php');
+require_once 'db.php';
 //*** Содержит GET-параметр из строки запроса. У первой страницы его не будет, и нужно будет вместо него подставить 0!!!
 $start = isset($_GET['start']) ? intval( $_GET['start'] ) : 0 ;
 //*** лимит для выборки строк с бд, отвечает за вывод строк таблицы на странице отчета бота
@@ -28,7 +27,7 @@ $limit = 5;
 //*** запрос на подсчёт количества строк в базе с лимитом выборки заданым выше
 $result = $link->query("SELECT SQL_CALC_FOUND_ROWS * FROM userip_log LIMIT $start , $limit") or die("Query failed: " . $link->error);
 //*** Составляем запрос на подсчёт количество записей в базе, который записывается в масив count прямо в базе, и возвращается переменной в виде масива.
-$result_found_rows = $link->query("SELECT FOUND_ROWS() as `count`") or die("немогу сделать запрос2 :( : " . $link->error);
+$result_found_rows = $link->query("SELECT FOUND_ROWS() as `count`") or die("Немогу сделать запрос2: " . $link->error);
 
 echo "<br>";
 //echo '<div style="float: left; ">';
@@ -40,7 +39,7 @@ echo '<tr style="background-color: #FFFFF0; border: 1px solid #EEEEEE;">'."\n".
      '<th style="width: 5%; border: 1px solid #EEEEEE;">id</th>'."\n".
      '<th style="width: 20%; border: 1px solid #EEEEEE;">Айпи</th>'."\n".
      '<th style="width: 60%; border: 1px solid #EEEEEE;">Браузер агента</th>'."\n".
-     '<th style="width: 60%; border: 1px solid #EEEEEE;">Реферрер</th>'."\n".
+     '<th style="width: 60%; border: 1px solid #EEEEEE;">Реферер</th>'."\n".
      '<th style="width: 15%; border: 1px solid #EEEEEE;">Дата/время доступа </th>'."\n";
 echo '</tr>' . "\r\n";
 
@@ -69,14 +68,16 @@ echo '<th style="width: 100%; text-align: left; padding: 2px 2px 2px 2px; border
 echo '</tr>' . "\r\n";
 
 while ($row = $result_found_rows->fetch_assoc()) {
-   echo '<tr style="background-color:#F0F0F0;">';	
+    echo '<tr style="background-color:#F0F0F0;">';	
 	echo '<td style="text-align: right; padding: 4px 14px 4px 4px; font-weight: bold; ">' . $row['count'] . '</td>';	
 	echo '</tr>' . "\r\n";
 //$d0 = var_dump($result_found_rows);
 //echo "<pre>" . $d0. "</pre>";
+//}
 echo '</tbody>';
 echo '</table>'."\n";
 //echo '</div>';
+//var_dump($row);
 
 //*** начинаеться пагинатор TODO! дописать пагинатор так чтобы страницы выводил блоками в одну линию
 //$allItems = 0;
@@ -130,6 +131,6 @@ $hostname = gethostbyname($name);
 </fieldset>
 </form>
 <!-- </div> -->
-
+<!--</div>--><!--конец див клас main -->
 </body>
 </html>

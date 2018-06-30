@@ -1,3 +1,34 @@
+* { /* сброс отступов по умолчанию, пока оставлю по умолчанию, иначе нада зававать для каждого елемента
+       нужно будет потом поиграться разметить правильно страницу, сейчас както лень */
+    /*margin: 0 0 0 0;
+    padding: 0 0 0 0;*/
+}
+.body {
+	/*padding-left:48%;
+	padding-top:10%;*/
+	font-family:Verdana,Arial,Helvetica,sans-serif;
+	font-size:1em;
+    color:#424E5A; /* цвет шрифта и всех рамок в документе */
+    /*color:#272727;*/
+	/*color:#555753;*/
+}
+
+/*div.main {
+    margin:10px;
+    padding:10px;
+}*/
+div.error {
+    width:400px;
+    padding:10px;
+    margin:0 auto;
+    background-color:#FFD9E0;
+    text-align:center;
+    font-weight:bold;
+    border:2px solid;
+    border-radius:5px;
+    color:#CD0000;
+}
+
 /*------------------ для пагинатора --------------------------------*/
 
 #pagination li { display: inline; }
@@ -47,52 +78,52 @@
 
 /*** для форм входа и хеширования пароля ***/
 
-.body{
-	padding-left:48%;
-	padding-top:10%;
-	font-family:Verdana,Arial,Helvetica,sans-serif;
-	font-size:1em;
-	color:#555753;
-}
-.input{
+.input {
 	display:block;
 	width:175px;
 	float:left;
 	margin-bottom:10px;
 }
-.label{
+.label {
 	display:block;
 	text-align:right;
 	float:left;
 	width:75px;
-	padding-right:20px;
+	margin-right:20px;
 }
-br{
-	clear:left;
+br {
+	/*clear:left;*/
 }
 /*** для анимации кнопки, размер задается в свойствах самой кнопки ***/
-.buttonSubmit{
+.buttonSubmit {
 	color:white;
 	background-color:#2E3436;
 	font-size:1em;
 	border:1px solid #2E3436;
-	border-radius:5px 5px 5px 5px;
+	border-radius:5px;
 /*	width:140px;*/
 	margin-left:95px;/* Отступ кнопки с лева от края формы*/
 }
-.buttonSubmitRoll{
+.buttonSubmitRoll {
 	color:white;
 	background-color:#555753;
 	font-size:1em;
     border:1px solid #2E3436;
-	border-radius:5px 5px 5px 5px;
+	border-radius:5px;
 /*	width:140px;*/ /* ширина кнопки жестко задана в коде формы, просто кнопки разные шириной получились */
 	margin-left:95px;/* Отступ кнопки с лева от края формы*/
 
 }
-.fieldset{
+.fieldset {
 	width:350px; /* ширина поля fieldset*/
-	margin-left:-200px;
+	/*margin-left:-200px;*/
+    margin:100px auto;
+
+    padding:10px;
+    
+    /*color:#555753; /*** цвет текста,пускай пока будет тот что задан в body глобально*/
+    color:#424E5A;
+
 	border:none;
     border-radius: 5px 5px;
 	background-color:#EEEEEE;/*#F6F6F6;*/
@@ -101,7 +132,7 @@ br{
 	-webkit-box-shadow:15px 15px 10px #888;
 /*** -moz- и -webkit- нада применять и для border-radius хотя в iceweasel работает и так TODO дома проверить на разных браузерах ***/
 }
-.legend{
+.legend {
 	border:none;
 	border-radius: 5px 5px;
 	background-color:#EEEEEE; /*#F6F6F6;*/
