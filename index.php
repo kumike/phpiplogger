@@ -19,7 +19,7 @@ $pass = 'a029d0df84eb5549c641e04a9ef389e5'; //*** тут в кавычки вс�
 <html>
 <head>
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="css/ipbot.css">
+	<link rel="stylesheet" href="css/style.css">
 	<title><?php echo $_SERVER["PHP_SELF"];?></title>
 </head>
 <body class="body">
@@ -43,7 +43,7 @@ if(isset($_POST['submit'])){
 		<input class="input" type="text" name="user" placeholder="Имя пользователя" required='required'/><br>
 		<label for="pass" class="label">Пароль:</label>
 		<input class="input" type="password" name="pass" placeholder="Пароль" required='required'/><br>
-		<input type="submit" name="submit" value="Вход" class="buttonSubmit"/>
+		<input type="submit" name="submit" value="Вход" class="LogFormButton"/>
 	</form>
 </fieldset>
 

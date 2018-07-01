@@ -28,13 +28,13 @@ $create_table = "create table staffip(id INT(10) NOT NULL AUTO_INCREMENT,
 $link->select_db('ipbot0');
 $link->query($create_table);
 //* проверка чи создались таблицы в базе
-if($link->error) {
+if ($link->error){
 	die("Ошибка при добавлении таблицы: \n" . $link->error);
    }
 echo "Таблица staffip успешно добавлена: <br><hr>\n";
 
 //*** возвращаем имя текущей базы данных 
-if ($result = $link->query("SELECT DATABASE()")) {
+if ($result = $link->query("SELECT DATABASE()")){
     $row = $result->fetch_row();
     printf("Default database is %s.\n<br />", $row[0]);
     $result->close();

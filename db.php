@@ -4,6 +4,7 @@ $db_host = '127.0.0.1';
 $db_user = 'root';
 $db_pass = ',j,thrf';
 $db_name = 'iplogger';
+#$db_name = 'ipbothoua';
 
 //*** Подключение к MySQL.
 $link = new mysqli($db_host, $db_user, $db_pass, $db_name);

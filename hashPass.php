@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf8">
-	<link rel="stylesheet" href="css/ipbot.css">
+	<link rel="stylesheet" href="css/style.css">
 <script>
 //***  Функция яваскрипт для смены стиля кнопки при наведении мышки
 function classChange(styleChange,item){

@@ -1,0 +1,251 @@
+* { /* сброс отступов по умолчанию, пока оставлю по умолчанию, иначе нада зававать для каждого елемента */
+    /*margin: 0 0 0 0;
+    padding: 0 0 0 0;*/
+}
+.body{
+/*	margin:8px;*/ /* пока уберу, это стандартный маргин для файрфокса, лучше задать вручную так точно страница будет одинакова везде */
+	margin:0 15px;
+	/*padding:0;*/
+	font-family:Verdana,Arial,Helvetica,sans-serif;
+	font-size:1em;
+    color:#424e5a; /* цвет шрифта и всех рамок в документе */
+    /*color:#272727;*/
+	/*color:#555753;*/
+}
+
+.header{
+	position:relative; /* так вмещает вложеные див как контейнер */
+	margin:0 auto;
+	margin-top:8px;
+	margin-bottom:30px;
+	padding:8px 0;
+	/*border:1px solid;*/
+	border-bottom:1px solid #bbb; /*#424e5a;*/
+	width:900px;
+}
+
+.pname{
+	/*color:#ccc;*/
+	font-size:2em;
+	font-weight:bold;
+	padding-left:20px;
+}
+
+div.exit{
+	position:absolute;
+	top:0;
+	right:0;
+	margin-top:16px;
+	margin-right:45px;
+}
+
+div.exit a{
+	text-decoration:none;
+	font-weight:bold;
+	color:#424e5a;
+}
+
+div.exit a:hover{
+	text-decoration:underline;
+}
+
+div.error {
+    width:350px;
+    padding:10px;
+    margin:0 auto;
+    background-color:#ffd9e0;
+    text-align:center;
+    font-weight:bold;
+    border:2px solid;
+    border-radius:5px;
+    color:#cd0000;
+}
+
+div.tableCenter{
+	margin:0 auto;
+	width:800px;
+}
+
+/*------------------ для пагинатора --------------------------------*/
+#pagination{
+	padding:2px;
+	background-color:#f1f1ff;
+	width:100%;
+	font-size:10px;  
+	border-top:1px solid #A6C9E2; 
+	border-bottom:1px solid #A6C9E2;
+	box-shadow:5px 5px 5px #777777;
+	margin-top:15px;
+	margin-bottom:15px;
+}
+
+#pagination a{
+	padding:1px 5px; /* сверху\снизу справа\слева*/
+	text-decoration:none;
+	border-left:  1px solid #A6C9E2;
+	border-radius:2px 2px;
+	font-weight:bold;
+	display:inline-block;
+}
+
+#pagination a:last-child{
+	border-right:1px solid #A6C9E2;
+}
+
+#pagination a:hover{
+	background-color:#c7c7c7;
+}
+
+/*-------- для форм входа и хеширования пароля ------------------------*/
+.input{
+	display:block;
+	width:175px;
+	float:left;
+	margin-bottom:10px;
+}
+
+.label{
+	display:block;
+	text-align:right;
+	float:left;
+	width:75px;
+	margin-right:20px;
+}
+
+/* анимация кнопки */
+input.LogFormButton[type="submit"]{
+	color:white;
+	background-color:#2E3436;
+	font-size:1em;
+	border:1px solid #2E3436;
+	border-radius:5px;
+	height:25px;/*высота кнопки*/
+	width:75px;/* 140px */
+	margin-left:95px;/* Отступ кнопки с лева от края формы*/
+}
+input.LogFormButton[type="submit"]:hover{
+	background-color: #555753;
+}
+
+.fieldset{
+	width:350px; /* ширина поля fieldset*/
+	margin:0px auto;
+	margin-top:150px;
+	margin-bottom:25px;
+	border:none;
+    border-radius: 5px 5px;
+	background-color:#EEEEEE;/*#F6F6F6;*/
+	box-shadow:15px 15px 10px #888;
+	-moz-box-shadow:15px 15px 10px #888;
+	-webkit-box-shadow:15px 15px 10px #888;
+/*** -moz- и -webkit- нада применять и для border-radius хотя в iceweasel работает и так TODO дома проверить на разных браузерах ***/
+}
+
+.legend{
+	border:none;
+	border-radius: 5px 5px;
+	background-color:#EEEEEE; /*#F6F6F6;*/
+	margin-bottom:1em;
+	padding:.3em;
+	text-shadow:#555753 0 .15em .10em;
+}
+
+/*---------------- таблица вывода лога ----------------------*/
+table{
+	width:800px; 
+	border:1px solid #AAAAAA;
+	font-size:12px;
+	box-shadow:10px 10px 5px #777777;
+}
+caption{
+	background-color:#FFFFF0;
+	font-weight:bold;
+	border:1px solid #BBBBBB;
+	border-bottom:0;
+	border-top-left-radius:8px;
+	border-top-right-radius:8px;
+}
+
+tr.head{
+	background-color:#FFFFF0;
+	border:1px solid #EEEEEE;
+}
+
+th{
+	border:1px solid #EEEEEE;
+}
+
+th.id{
+	width:5%;
+}
+
+th.ip{
+	width:20%;
+}
+
+th.ua,th.ref{
+	width:60%;
+}
+
+th.dat{
+	width:15%;
+}
+
+/* body table */
+tr.body:nth-of-type(even){
+	/*background-color:#F0F0F0;*/
+	background-color:#F3F3F3;
+}
+
+tr.body:nth-of-type(odd){
+	background-color:#ddd;
+}
+
+td.id{
+	text-align:center;
+	padding:4px 4px 4px 4px;
+}
+
+td.ip,td.ua,td.ref,td.at{
+	text-align:left;
+}
+
+td.ip,td.at{
+	padding:4px 20px 4px 20px;
+}
+
+td.ua,td.ref{
+	padding:4px 10px 4px 10px;
+}
+
+/* table alnum */
+table.allnum{
+	width:150px;
+	border:1px solid #AAAAAA;
+	font-size:10px;
+	box-shadow:5px 5px 5px #777777;
+	margin-top:20px;
+}
+
+tr.alnumTrHead{
+	background-color:#FFFFF0;
+	border:1px solid #EEEEEE;
+}
+
+th.alnumThHead{
+	width:100%;
+	text-align:left;
+	padding:2px 2px 2px 2px;
+	border: 1px solid #EEEEEE;
+}
+
+tr.alnumTrBody{
+	background-color:#F3F3F3;
+}
+
+td.alnumTdBody{
+	text-align:right;
+	padding:4px 14px 4px 4px;
+	font-weight: bold;
+}
+
