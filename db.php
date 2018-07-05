@@ -12,13 +12,4 @@ $link = new mysqli($db_host, $db_user, $db_pass, $db_name);
 $link->connect_error ? die ("Немогу подключится: (" . $link->connect_errno . ") " . $link->connect_error) : '';
 //*** утанавливаем кодировку utf8 для вывода корректных русских символов        
 $link->set_charset("utf8");
-
-
-//*** проверка подключения для отладки
-/*
-if ($link->connect_error) {
-    die('Ошибка подключения: (' . $link->connect_errno . ') ' . $link->connect_error);
-   }
-echo 'Соединение установлено: ' . $link->host_info . "\n<br>";
-*/
 ?>

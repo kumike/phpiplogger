@@ -1,47 +1,48 @@
 <?php
-//*** подключение выполняеться в ооп стиле, да и весь установщик базы написан в ооп
+//*** подключение выполняеться в ооп стиле
 $link = new mysqli("127.0.0.1", "mishele", "1437");
 
 //require_once('db.php');
 //*** проверка подключения
 if ($link->connect_error) {
     die('Ошибка подключения: (' . $link->connect_errno . ') ' . $link->connect_error);
-   }
+}
 echo 'Соединение установлено: ' . $link->host_info . "\n<br>";
 //*** формируем запрос для создания базы данных
-$create_db = "CREATE DATABASE ipbot0 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
+$create_db = "CREATE DATABASE iplogger2 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
 //*** сам запрос на создание базы в ооп стиле
 $link->query($create_db); // or die(mysqli_error($link));
 //*** проверка чи создалась база данных
-if($link->error) { 
-   die('Ошибка создания базы данных: ' . $link->error);
-   }
-echo "База данных ipbot успешно создана<br>\n";
+if ($link->error) { 
+	die('Ошибка создания базы данных: ' . $link->error);
+} else {
+	echo "База данных iplogger2 успешно создана<br>\n";
+}
 //*** формируемм запрос на добавление таблиц в базу
-$create_table = "create table staffip(id INT(10) NOT NULL AUTO_INCREMENT, 
+$create_table = "create table userip_log (id INT(10) NOT NULL AUTO_INCREMENT, 
                  ip VARCHAR(15) NOT NULL, 
                  useragent VARCHAR(255) NOT NULL, 
                  referrer VARCHAR(255) NOT NULL, 
-                 time TIMESTAMP, 
+                 access_time TIMESTAMP, 
                  PRIMARY KEY (id))";
 //*** выбираем базу данных для вставки таблиц
-$link->select_db('ipbot0');
+$link->select_db('iplogger2');
 $link->query($create_table);
 //* проверка чи создались таблицы в базе
 if ($link->error){
 	die("Ошибка при добавлении таблицы: \n" . $link->error);
    }
-echo "Таблица staffip успешно добавлена: <br><hr>\n";
+echo "Таблица userip_log успешно добавлена<br><hr>\n";
 
 //*** возвращаем имя текущей базы данных 
-if ($result = $link->query("SELECT DATABASE()")){
-    $row = $result->fetch_row();
-    printf("Default database is %s.\n<br />", $row[0]);
-    $result->close();
-}
+$result = $link->query("SELECT DATABASE()");//{
+$row = $result->fetch_row();
+printf("Default database is %s.\n<br />", $row[0]);
+//    $result->close();
+//}
 
 //*** просто тесты, не существенно
-$result = $link->query("DESCRIBE staffip");
+$result = $link->query("DESCRIBE iplogger2");
 $row0 = $result->fetch_assoc();
 
 $d = var_dump($row0);

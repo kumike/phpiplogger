@@ -2,20 +2,19 @@
 $ip0 = $_SERVER['REMOTE_ADDR'];
 if (!empty($_SERVER['HTTP_USER_AGENT'])){
 	$usag = $_SERVER['HTTP_USER_AGENT'];
-    } else {//*** если HTTP_USER_AGENT не пустой записываем значение переменной масива, если пуст пишем соопчение что неопределён
-	   $usag = "Броузер не определён .. :(";
-      }
+    } else { //*** если HTTP_USER_AGENT не пустой записываем значение переменной масива, если пуст пишем соопчение что неопределён
+		$usag = "Броузер не определён .. :(";
+	}
 if (!empty($_SERVER['HTTP_REFERER'])){
     $ref = $_SERVER['HTTP_REFERER'];
 	} else {
 		$ref ="Реферер пустой .. :(";
-		}
+	}
 //*** Вставляем файл подключения к бд MySQL
-require_once('db.php');        
+require 'dbpdo.php';
 //*** Формируем запрос на запись в базу        
-$link->query("INSERT INTO userip_log (ip, useragent, referrer) VALUES('$ip0', '$usag', '$ref')");
+$query = $dbh->prepare("INSERT INTO userip_log (ip, useragent, referrer) VALUES(:ip0, :usag, :ref)");
+$query->execute([':ip0'=>$ip0,':usag'=>$usag,':ref'=>$ref]);
 //*** инкрементируем счётчик заходов на страничку
-$link->query("UPDATE ipcounter SET counter = counter+1");
-//*** закрываем соединение с базой данных
-$link->close();
+$dbh->exec("UPDATE ipcounter SET counter = counter+1");
 ?> 

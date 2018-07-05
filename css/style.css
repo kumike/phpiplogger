@@ -49,16 +49,24 @@ div.exit a:hover{
 	text-decoration:underline;
 }
 
-div.error {
+div.error{
     width:350px;
     padding:10px;
     margin:0 auto;
+	/*margin-bottom:150px;*/
     background-color:#ffd9e0;
     text-align:center;
     font-weight:bold;
     border:2px solid;
     border-radius:5px;
     color:#cd0000;
+}
+
+div.hpass{
+	width:350px;
+	padding:10px;
+	margin:0 auto;
+	background-color:#eeeeee;
 }
 
 div.tableCenter{
@@ -97,23 +105,22 @@ div.tableCenter{
 }
 
 /*-------- для форм входа и хеширования пароля ------------------------*/
-.input{
-	display:block;
+input{
+	/*display:block;*/
 	width:175px;
 	float:left;
 	margin-bottom:10px;
+	padding-left:5px;/* для плейсхолдера отступ от края поля */
+	height:25px;
+	border:1px solid #ccc;
+	border-radius:3px;
 }
-
-.label{
-	display:block;
-	text-align:right;
-	float:left;
-	width:75px;
-	margin-right:20px;
+input:focus{
+	border:1px solid #77a8d0;
 }
 
 /* анимация кнопки */
-input.LogFormButton[type="submit"]{
+input[type="submit"]{
 	color:white;
 	background-color:#2E3436;
 	font-size:1em;
@@ -123,11 +130,27 @@ input.LogFormButton[type="submit"]{
 	width:75px;/* 140px */
 	margin-left:95px;/* Отступ кнопки с лева от края формы*/
 }
-input.LogFormButton[type="submit"]:hover{
+input[type="submit"]:hover{
 	background-color: #555753;
 }
 
-.fieldset{
+label{
+	/*display:block;*/
+	text-align:right;
+	float:left;
+	width:75px;
+	margin-right:20px;
+	margin-top:5px;
+	height:25px;
+	/*border:1px solid;*/
+}
+/*div.formCenter{*/
+	/*display:block;*/
+	/*margin:0px auto;*/
+	/*border:1px solid;*/
+/*}*/
+
+fieldset{
 	width:350px; /* ширина поля fieldset*/
 	margin:0px auto;
 	margin-top:150px;
@@ -141,7 +164,7 @@ input.LogFormButton[type="submit"]:hover{
 /*** -moz- и -webkit- нада применять и для border-radius хотя в iceweasel работает и так TODO дома проверить на разных браузерах ***/
 }
 
-.legend{
+legend{
 	border:none;
 	border-radius: 5px 5px;
 	background-color:#EEEEEE; /*#F6F6F6;*/

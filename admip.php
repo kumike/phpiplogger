@@ -18,19 +18,26 @@ ini_set('display_errors',1);
 error_reporting(E_ALL);
 
 //*** Вставляем файл подключения к бд MySQL
-require_once 'db.php';
+//require_once 'db.php';
+require 'dbpdo.php';
 //*** Содержит GET-параметр из строки запроса. У первой страницы его не будет, и нужно будет вместо него подставить 0!!!
 $start = isset($_GET['start']) ? intval( $_GET['start'] ) : 0 ;
 //*** лимит для выборки строк с бд, отвечает за вывод строк таблицы на странице отчета бота
 $limit = 5;
-//*** запрос на подсчёт количества строк в базе с лимитом выборки заданым выше
-$result = $link->query("SELECT SQL_CALC_FOUND_ROWS * FROM userip_log LIMIT $start , $limit") or die("Query failed: " . $link->error);
+
+//*** запрос на выборку нужного количества строк в базе с лимитом выборки заданым выше
+$result = $dbh->prepare("SELECT SQL_CALC_FOUND_ROWS * FROM userip_log LIMIT :start , :limit");
+//*** биндим значения как цифры,если их передать масивом из ексекуте то берёт значения в кавычки вызывая ошибку синтаксиса
+$result->bindValue(':start',$start,PDO::PARAM_INT);
+$result->bindValue(':limit',$limit,PDO::PARAM_INT);
+$result->execute();
 
 // *** !!!! это только для разработки, подключена старая база из хо.уа, для работы с записями, выше строка коректна для новой базы
 #$result = $link->query("SELECT SQL_CALC_FOUND_ROWS * FROM ip0 LIMIT $start , $limit") or die("Query failed: " . $link->error);
 
 //*** Составляем запрос на подсчёт количество записей в базе, который записывается в масив count прямо в базе, и возвращается переменной в виде масива.
-$result_found_rows = $link->query("SELECT FOUND_ROWS() as `count`") or die("Немогу сделать запрос2: " . $link->error);
+//$result_found_rows = $link->query("SELECT FOUND_ROWS() as `count`") or die("Немогу сделать запрос2: " . $link->error);
+$result_found_rows = $dbh->query("SELECT FOUND_ROWS() as `count`");// or die("Немогу сделать запрос2: " . $link->error);
 
 //*** выводим таблицу с логом
 echo "<div class='tableCenter'>
@@ -44,7 +51,7 @@ echo "<div class='tableCenter'>
       <th class='ref'>Реферер</th>
       <th class='dat'>Дата/время доступа</th>
 	  </tr>\n";
-while ($rowLog = $result->fetch_assoc()) {
+while ($rowLog = $result->fetch()) {
 	echo "<tr class='body'>
 	      <td class='id'>{$rowLog['id']}</td>
 		  <td class='ip'>{$rowLog['ip']}</td>
@@ -57,7 +64,7 @@ echo "</tbody>
       </table>\n";
 
 //*** 
-$rowCount = $result_found_rows->fetch_assoc();
+$rowCount = $result_found_rows->fetch();
 //*** подсчёт записей в базе данных 
 echo "<table class='allnum'>
 	  <tbody>
@@ -88,8 +95,6 @@ echo "<table class='allnum'>
 //*** Собственно выводим на экран:
 echo '<div id="pagination">'.$html."</div>\n";
 
-//*** Закрываем соединение с базой
-$link->close();
 ?>
 </body>
 </html>

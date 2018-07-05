@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+$admin = 'admin'; //*** тут подставить вашего пользователя, по умолчанию admin
+$pass = 'a029d0df84eb5549c641e04a9ef389e5'; //*** тут в кавычки вставить код полученый на станице hashPass
+
 //***служебные ошибки***
 ini_set('display_errors',1);
 error_reporting(E_ALL);
@@ -11,19 +14,7 @@ if (isset($_SESSION['admin'])){ //*** убирает нотисы про нес�
 		exit;
 	}
 }
-$admin = 'admin'; //*** тут подставить вашего пользователя, по умолчанию admin
-$pass = 'a029d0df84eb5549c641e04a9ef389e5'; //*** тут в кавычки вставить код полученый на станице hashPass
 
-?>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" href="css/style.css">
-	<title><?php echo $_SERVER["PHP_SELF"];?></title>
-</head>
-<body class="body">
-<?php 
 if(isset($_POST['submit'])){
 	if($admin == $_POST['user'] and $pass == md5($_POST['pass'])){
 		$_SESSION['admin'] = $admin;
@@ -35,15 +26,23 @@ if(isset($_POST['submit'])){
 	}
 }
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Логин</title>
+</head>
+<body class="body">
 
-<fieldset class="fieldset">
-	<legend class="legend">Авторизация</legend>
+<fieldset>
+	<legend>Авторизация</legend>
 	<form method="post">
-		<label for="user" class="label">Имя:</label>
-		<input class="input" type="text" name="user" placeholder="Имя пользователя" required='required'/><br>
-		<label for="pass" class="label">Пароль:</label>
-		<input class="input" type="password" name="pass" placeholder="Пароль" required='required'/><br>
-		<input type="submit" name="submit" value="Вход" class="LogFormButton"/>
+		<label for="user">Имя:</label>
+		<input type="text" name="user" placeholder="Имя пользователя" required='required'/><br>
+		<label for="pass">Пароль:</label>
+		<input type="password" name="pass" placeholder="Пароль" required='required'/><br>
+		<input type="submit" name="submit" value="Вход"/>
 	</form>
 </fieldset>
 
