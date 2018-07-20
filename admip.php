@@ -51,7 +51,7 @@ echo "<div class='tableCenter'>
       <th class='ref'>Реферер</th>
       <th class='dat'>Дата/время доступа</th>
 	  </tr>\n";
-while ($rowLog = $result->fetch()) {
+while ($rowLog = $result->fetch()){
 	echo "<tr class='body'>
 	      <td class='id'>{$rowLog['id']}</td>
 		  <td class='ip'>{$rowLog['ip']}</td>
