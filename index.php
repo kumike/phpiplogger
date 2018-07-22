@@ -8,18 +8,16 @@ $pass = 'a029d0df84eb5549c641e04a9ef389e5'; //*** тут в кавычки вс�
 ini_set('display_errors',1);
 error_reporting(E_ALL);
 
-if (isset($_SESSION['admin'])){ //*** убирает нотисы про несуществующую переменную, хотя работает и без него
-	if ($_SESSION['admin']){
+//*** isset убирает нотисы про несуществующую переменную, хотя работает и без него
+if (isset($_SESSION['admin']) and $_SESSION['admin']){
 		header('Location: admip.php');
-		exit;
-	}
 }
+
 
 if(isset($_POST['submit'])){
 	if($admin == $_POST['user'] and $pass == md5($_POST['pass'])){
 		$_SESSION['admin'] = $admin;
 		header('Location: admip.php');
-		exit;
 	} else { //*** вывод ошибки подвигает вниз форму, как решить пока не придумал
 		//echo "<div class='error'>Логин или пароль неверны!</div>\n";
 		$errmess = "<div class='error'>Логин или пароль неверны!</div>\n";
@@ -35,13 +33,13 @@ if(isset($_POST['submit'])){
 </head>
 <body class="body">
 
-<fieldset>
+<fieldset class="logform">
 	<legend>Авторизация</legend>
 	<form method="post">
 		<label for="user">Имя:</label>
-		<input type="text" name="user" placeholder="Имя пользователя" required='required'/><br>
+		<input class="logform" type="text" name="user" placeholder="Имя пользователя" required='required'/><br>
 		<label for="pass">Пароль:</label>
-		<input type="password" name="pass" placeholder="Пароль" required='required'/><br>
+		<input class="logform" type="password" name="pass" placeholder="Пароль" required='required'/><br>
 		<input type="submit" name="submit" value="Вход"/>
 	</form>
 </fieldset>

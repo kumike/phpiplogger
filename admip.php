@@ -1,4 +1,17 @@
-<?php require_once 'auth.php';?>
+<?php
+//***служебные ошибки***
+ini_set('display_errors',1);
+error_reporting(E_ALL);
+
+session_start();
+if (isset($_GET['do']) and $_GET['do'] == 'logout'){
+	unset($_SESSION['admin']);
+	session_destroy();
+}
+if (!$_SESSION['admin']){
+	header("Location: index.php");
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,10 +26,6 @@
 </header>
 
 <?php 
-//***служебные ошибки***
-ini_set('display_errors',1);
-error_reporting(E_ALL);
-
 //*** Вставляем файл подключения к бд MySQL
 //require_once 'db.php';
 require 'dbpdo.php';

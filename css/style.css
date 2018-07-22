@@ -105,7 +105,7 @@ div.tableCenter{
 }
 
 /*-------- для форм входа и хеширования пароля ------------------------*/
-input{
+input.logform{
 	/*display:block;*/
 	width:175px;
 	float:left;
@@ -115,7 +115,7 @@ input{
 	border:1px solid #ccc;
 	border-radius:3px;
 }
-input:focus{
+input.logform:focus{
 	border:1px solid #77a8d0;
 }
 
@@ -144,14 +144,9 @@ label{
 	height:25px;
 	/*border:1px solid;*/
 }
-/*div.formCenter{*/
-	/*display:block;*/
-	/*margin:0px auto;*/
-	/*border:1px solid;*/
-/*}*/
 
 fieldset{
-	width:350px; /* ширина поля fieldset*/
+	padding:10px;
 	margin:0px auto;
 	margin-top:150px;
 	margin-bottom:25px;
@@ -164,6 +159,10 @@ fieldset{
 /***-moz- -webkit- -o- -ms- нада применять и для border-radius хотя в iceweasel работает и так, дома проверить на разных браузерах ***/
 }
 
+fieldset.logform{
+	width:350px; /* ширина поля fieldset*/
+}
+
 legend{
 	border:none;
 	border-radius: 5px 5px;
@@ -172,7 +171,58 @@ legend{
 	padding:.3em;
 	text-shadow:#555753 0 .15em .10em;
 }
+/*----------------- для форм на странице инсталл ---------------------------*/
+/*основные настройки фиелдсет и кнопки формы наследуются выше, только ширина кнопки в странице инсталл жестко задана*/
+div.container{
+	position:relative;
+	margin:0 auto;
+	width:900px;
+	border:1px solid;
+}
 
+input.radio{
+	margin-right:10px;
+	margin-bottom:10px;
+	padding:0;
+}
+div.radio{
+	position:absolute;
+	top:0;
+	left:0;
+}
+
+fieldset.radio{
+	width:420px; /* ширина поля fieldset*/
+	margin:0;
+}
+
+fieldset.cipher{
+	width:350px; 
+	margin:0;
+}
+
+div.cipher{
+	position:absolute;
+	top:0;
+	right:0;
+}
+
+ul{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+
+div.messDb{
+	position:absolute;
+	top:250px;
+	left:0
+}
+div.messCipher{
+	position:absolute;
+	top:250px;
+	right:0;
+}
 /*---------------- таблица вывода лога ----------------------*/
 table{
 	width:800px; 
