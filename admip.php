@@ -27,7 +27,6 @@ if (!$_SESSION['admin']){
 
 <?php 
 //*** Вставляем файл подключения к бд MySQL
-//require_once 'db.php';
 require 'dbpdo.php';
 //*** Содержит GET-параметр из строки запроса. У первой страницы его не будет, и нужно будет вместо него подставить 0!!!
 $start = isset($_GET['start']) ? intval( $_GET['start'] ) : 0 ;
@@ -40,13 +39,6 @@ $result = $dbh->prepare("SELECT SQL_CALC_FOUND_ROWS * FROM userip_log LIMIT :sta
 $result->bindValue(':start',$start,PDO::PARAM_INT);
 $result->bindValue(':limit',$limit,PDO::PARAM_INT);
 $result->execute();
-
-// *** !!!! это только для разработки, подключена старая база из хо.уа, для работы с записями, выше строка коректна для новой базы
-#$result = $link->query("SELECT SQL_CALC_FOUND_ROWS * FROM ip0 LIMIT $start , $limit") or die("Query failed: " . $link->error);
-
-//*** Составляем запрос на подсчёт количество записей в базе, который записывается в масив count прямо в базе, и возвращается переменной в виде масива.
-//$result_found_rows = $link->query("SELECT FOUND_ROWS() as `count`") or die("Немогу сделать запрос2: " . $link->error);
-$result_found_rows = $dbh->query("SELECT FOUND_ROWS() as `count`");// or die("Немогу сделать запрос2: " . $link->error);
 
 //*** выводим таблицу с логом
 echo "<div class='tableCenter'>
@@ -72,16 +64,16 @@ while ($rowLog = $result->fetch()){
 echo "</tbody>
       </table>\n";
 
-//*** 
-$rowCount = $result_found_rows->fetch();
-//*** подсчёт записей в базе данных 
+//*** подсчёт количество записей в базе,который записывается в масив count прямо в базе,и возвращается переменной в виде масива.
+$result_found_rows = $dbh->query("SELECT FOUND_ROWS() as `count`")->fetch();
+//*** показать количство записей в базе данных 
 echo "<table class='allnum'>
 	  <tbody>
       <tr class='alnumTrHead'>
       <th class='alnumThHead'>Всего записей:</th>
       </tr>
 	  <tr class='alnumTrBody'>	
-	  <td class='alnumTdBody'>{$rowCount['count']}</td>	
+	  <td class='alnumTdBody'>{$result_found_rows['count']}</td>	
 	  </tr>
 	  </tbody>
 	  </table>
@@ -93,7 +85,7 @@ echo "<table class='allnum'>
     //*** Здесь округляем в большую сторону, потому что остаток
     //*** от деления - кол-во страниц тоже нужно будет показать
     //*** на ещё одной странице.
-    $pageCount = ceil($rowCount['count'] / $limit);
+    $pageCount = ceil($result_found_rows['count'] / $limit);
     //*** Начинаем с нуля! Это даст нам правильные смещения для БД
     for($i = 0;$i < $pageCount;$i++){
         //*** Здесь ($i * $limit) - вычисляет нужное для каждой страницы  смещение,

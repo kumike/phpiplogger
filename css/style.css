@@ -62,12 +62,7 @@ div.error{
     color:#cd0000;
 }
 
-div.hpass{
-	width:350px;
-	padding:10px;
-	margin:0 auto;
-	background-color:#eeeeee;
-}
+
 
 div.tableCenter{
 	margin:0 auto;
@@ -107,7 +102,7 @@ div.tableCenter{
 /*-------- для форм входа и хеширования пароля ------------------------*/
 input.logform{
 	/*display:block;*/
-	width:175px;
+	width:180px;
 	float:left;
 	margin-bottom:10px;
 	padding-left:5px;/* для плейсхолдера отступ от края поля */
@@ -142,7 +137,7 @@ label{
 	margin-right:20px;
 	margin-top:5px; /* центрирует лабел по полю ввода */
 	height:25px;
-	/*border:1px solid;*/
+/*	border:1px solid;*/
 }
 
 fieldset{
@@ -171,6 +166,7 @@ legend{
 	padding:.3em;
 	text-shadow:#555753 0 .15em .10em;
 }
+
 /*----------------- для форм на странице инсталл ---------------------------*/
 /*основные настройки фиелдсет и кнопки формы наследуются выше, только ширина кнопки в странице инсталл жестко задана*/
 div.container{
@@ -198,6 +194,7 @@ fieldset.radio{
 
 fieldset.cipher{
 	width:350px; 
+	/*height:130px;*/
 	margin:0;
 }
 
@@ -217,11 +214,23 @@ div.messDb{
 	position:absolute;
 	top:250px;
 	left:0
+
 }
+div.hdb{
+	width:420px;
+	padding:10px;
+	background-color:#eeeeee;
+}
+
 div.messCipher{
 	position:absolute;
 	top:250px;
 	right:0;
+}
+div.hpass{
+	width:350px;
+	padding:10px;
+	background-color:#eeeeee;
 }
 /*---------------- таблица вывода лога ----------------------*/
 table{

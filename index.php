@@ -13,7 +13,6 @@ if (isset($_SESSION['admin']) and $_SESSION['admin']){
 		header('Location: admip.php');
 }
 
-
 if(isset($_POST['submit'])){
 	if($admin == $_POST['user'] and $pass == md5($_POST['pass'])){
 		$_SESSION['admin'] = $admin;
