@@ -97,5 +97,17 @@ echo "<table class='allnum'>
 echo '<div id="pagination">'.$html."</div>\n";
 
 ?>
+
+<div class="tableCenter">
+<fieldset class="ipstackFieldset">
+	<form class="ipstackForm" id='submit'>
+		<input class="ipstackInput" type="text" id="ip" placeholder="IP или Доменное имя">
+		<input class="ipstackButton" type="submit" value="Отправить">
+	</form>
+	<div id="loadResult"></div>
+</fieldset>
+</div>
+
+<script src='js/ipstackAjax.js'></script>
 </body>
 </html>

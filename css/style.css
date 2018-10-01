@@ -167,6 +167,36 @@ legend{
 	text-shadow:#555753 0 .15em .10em;
 }
 
+/*----------------- для формы айпистак -------------------------------------*/
+fieldset.ipstackFieldset{
+	margin-top:50px;
+	border:5px solid;
+	box-shadow:10px 10px 5px #777777;
+}
+
+form.ipstackForm{
+	float:left;
+}
+
+input.ipstackInput{
+	padding-left:5px;/* для плейсхолдера отступ от края поля */
+	height:25px;
+	border:1px solid #ccc;
+	border-radius:3px;
+}
+input.ipstackInput:focus{
+	border:1px solid #77a8d0;
+}
+
+input.ipstackButton{
+	width:108px;
+	margin:0px 8px; /* верх\низ, лево\право*/
+}
+
+div#loadResult{
+	padding-top:4px;
+}
+
 /*----------------- для форм на странице инсталл ---------------------------*/
 /*основные настройки фиелдсет и кнопки формы наследуются выше, только ширина кнопки в странице инсталл жестко задана*/
 div.container{
@@ -234,7 +264,7 @@ div.hpass{
 }
 /*---------------- таблица вывода лога ----------------------*/
 table{
-	width:800px; 
+	width:800px;
 	border:1px solid #AAAAAA;
 	font-size:12px;
 	box-shadow:10px 10px 5px #777777;

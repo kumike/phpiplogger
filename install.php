@@ -84,12 +84,13 @@ if (isset($messCipher)){
 ini_set('display_errors',1);
 error_reporting(E_ALL);
 
-include 'phpiplogger/dbpdo.php';
+include 'dbpdo.php';
+//require 'dbpdo.php';
 
 
 
 function showTables($query){
-	include 'phpiplogger/dbpdo.php';
+	include 'dbpdo.php';
 	if (!empty($db_name)){
 		$descTable = $dbh->query($query);
 		echo '<div class="hdb">';
@@ -128,11 +129,11 @@ if (isset($_POST['sdb'])){
 			$errm = $dbh->errorInfo();
 			$flag = true;
 			if ($errm[1] == '1007'){ 
-				echo '<div class="hdb"><span style="color:#660202">Ошибка создания базы данных '.$db_name.' : 
+				echo '<div class="hdb"><span style="color:#800000">Ошибка создания базы данных '.$db_name.' : 
 					  База данных уже существует! ERROR '.$errm[1].' ('.$dbh->errorCode().')</span></div>';
 				$flag = false;
 			} elseif ($errm[1] == '1044'){
-				echo '<div class="hdb"><span style="color:#660202">Вы не можете создавать баззы данных! ERROR '.
+				echo '<div class="hdb"><span style="color:#800000">Вы не можете создавать баззы данных! ERROR '.
 				      $errm[1].' ('.$dbh->errorCode().')</span></div>';
 				$flag = false;
 			} elseif ($flag){
@@ -149,7 +150,7 @@ if (isset($_POST['sdb'])){
 				//*** собственно создаем таблицы в новой базе
 				$dbh->exec($create_table);
 				$dbh->exec($create_table_ipcount);
-			
+				$dbh->exec("INSERT INTO ipcounter (counter) value ('0')");
 			//	$showTable = $dbh->query('show tables')->fetchAll(PDO::FETCH_NUM);
 			//	echo '<div class="hdb"><b>Созданы таблицы:</b><span style="color:blue"> '.
 			//		  $showTable[0][0].', '.$showTable[1][0].'</span></div><br>';
@@ -160,7 +161,7 @@ if (isset($_POST['sdb'])){
 			$dbuse = $dbh->query('select database()')->fetch();
 			$flag = true;
 			if (empty($dbuse['database()'])){
-				echo '<div class="hdb"><span style="color:#660202">Не выбрана база данных, 
+				echo '<div class="hdb"><span style="color:#800000">Не выбрана база данных, 
 					  внесите названия нужной базы в файл <b>dbpdo.php</b></span></div>';
 				$flag = false;
 			} elseif($flag){
@@ -171,15 +172,17 @@ if (isset($_POST['sdb'])){
 			//	die("STOP TABLES");
 				//*** собственно создаем таблицы в новой базе
 				$dbh->exec($create_table);
+				//$dbh->exec("INSERT INTO ipcounter (counter) VALUE ('0')");
 				$errm = $dbh->errorInfo();
 				if ($errm['0'] == '42S01' ){
-					echo '<div class="hdb"><span style="color:#660202">Таблица <b>userip_log</b> уже существует!</span></div>';
+					echo '<div class="hdb"><span style="color:#800000">Таблица <b>userip_log</b> уже существует!</span></div>';
 					$flag = false;
 				}
 				$dbh->exec($create_table_ipcount);
+				$dbh->exec("INSERT INTO ipcounter (counter) value ('0')");
 				$errm1 = $dbh->errorInfo();
 				if ($errm1['0'] == '42S01' ){
-					echo '<div class="hdb"><span style="color:#660202">Таблица <b>ipcounter</b> уже существует!</span></div>';
+					echo '<div class="hdb"><span style="color:#800000">Таблица <b>ipcounter</b> уже существует!</span></div>';
 					$flag = false;
 				}
 				if ($flag){
