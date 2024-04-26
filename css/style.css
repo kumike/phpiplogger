@@ -99,6 +99,47 @@ div.tableCenter{
 	background-color:#c7c7c7;
 }
 
+/*------ new pag -------*/
+.paginate {
+margin:0 auto;
+width:800px;
+font-family:Arial, Helvetica, sans-serif;
+	padding: 30px;
+	
+
+}
+.paginate a {
+	padding:2px 5px 2px 5px;
+	margin:2px;
+	border:1px solid #999;
+	text-decoration:none;
+	color: #666;
+	box-shadow:5px 5px 5px #777777;
+}
+.paginate a:hover, .paginate a:active {
+	border: 1px solid #999;
+	color: #000;
+}
+.paginate span.current {
+box-shadow:5px 5px 5px #777777;
+    margin: 2px;
+	padding: 2px 5px 2px 5px;
+	border: 1px solid #999;
+	font-weight: bold;
+	background-color: #999;
+	color: #FFF;
+}
+.paginate span.disabled {
+box-shadow:5px 5px 5px #777777;
+	padding:2px 5px 2px 5px;
+	margin:2px;
+	border:1px solid #eee;
+	color:#DDD;
+}
+
+/*------*/
+
+
 /*-------- для форм входа и хеширования пароля ------------------------*/
 input.logform{
 	/*display:block;*/
@@ -124,6 +165,7 @@ input[type="submit"]{
 	height:25px;/*высота кнопки*/
 	width:75px;/* 140px */
 	margin-left:95px;/* Отступ кнопки с лева от края формы*/
+    cursor: pointer;
 }
 input[type="submit"]:hover{
 	background-color: #555753;
@@ -186,6 +228,7 @@ input.ipstackInput{
 }
 input.ipstackInput:focus{
 	border:1px solid #77a8d0;
+    cursor:pointer;
 }
 
 input.ipstackButton{
@@ -194,7 +237,10 @@ input.ipstackButton{
 }
 
 div#loadResult{
-	padding-top:4px;
+	display:inline-block; /* позволяет перемещать блок Элемент не занимает всю ширину и может находится на одной строке с другими элементами. При этом у него можно задать параметры, свойственные block'у: конкретную ширину и высоту */
+	margin-top:2px;
+/*	border:3px solid;*/ /*просто рамка для просто визуализации кординат размещения вывода результатов*/
+/*	padding-top:4px;*/
 }
 
 /*----------------- для форм на странице инсталл ---------------------------*/
@@ -339,16 +385,12 @@ table.allnum{
 	margin-top:20px;
 }
 
-tr.alnumTrHead{
-	background-color:#FFFFF0;
-	border:1px solid #EEEEEE;
-}
-
 th.alnumThHead{
 	width:100%;
 	text-align:left;
 	padding:2px 2px 2px 2px;
 	border: 1px solid #EEEEEE;
+	background-color:#FFFFF0;
 }
 
 tr.alnumTrBody{

@@ -1,4 +1,4 @@
-<?php
+   <?php
 //***служебные ошибки***
 ini_set('display_errors',1);
 error_reporting(E_ALL);
@@ -28,13 +28,28 @@ if (!$_SESSION['admin']){
 <?php 
 //*** Вставляем файл подключения к бд MySQL
 require 'dbpdo.php';
-//*** Содержит GET-параметр из строки запроса. У первой страницы его не будет, и нужно будет вместо него подставить 0!!!
-$start = isset($_GET['start']) ? intval( $_GET['start'] ) : 0 ;
-//*** лимит для выборки строк с бд, отвечает за вывод строк таблицы на странице отчета бота
-$limit = 5;
 
-//*** запрос на выборку нужного количества строк в базе с лимитом выборки заданым выше
-$result = $dbh->prepare("SELECT SQL_CALC_FOUND_ROWS * FROM userip_log LIMIT :start , :limit");
+$tableName = "userip_log";
+$targetpage = "admip.php";
+//*** количество отображаемых записей на странице
+$limit = 6;
+//*** количество страниц на пагинаторе до и после активной страницы до разрывов ...
+$stages = 6;
+
+//*** считаем общее количество записей в базе для вормировки количества страниц
+$result = $dbh->query("SELECT COUNT(id) as num FROM $tableName");
+$total_pages = $result->fetch(PDO::FETCH_ASSOC);
+$total_pages = $total_pages['num'];
+
+//*** назначаем переменной старт номер откуда начинать выборку данных на данную через гет страницу
+if (empty($_GET['page'])){
+	$_GET['page'] = 1;
+}
+$page = $_GET['page'];
+$start = is_numeric($page) ? ($page - 1) * $limit : 0;
+
+//*** тут дынные
+$result = $dbh->prepare("SELECT * FROM $tableName LIMIT :start, :limit");
 //*** биндим значения как цифры,если их передать масивом из ексекуте то берёт значения в кавычки вызывая ошибку синтаксиса
 $result->bindValue(':start',$start,PDO::PARAM_INT);
 $result->bindValue(':limit',$limit,PDO::PARAM_INT);
@@ -52,50 +67,89 @@ echo "<div class='tableCenter'>
       <th class='ref'>Реферер</th>
       <th class='dat'>Дата/время доступа</th>
 	  </tr>\n";
-while ($rowLog = $result->fetch()){
+while ($rowLog = $result->fetch(PDO::FETCH_NUM)){
 	echo "<tr class='body'>
-	      <td class='id'>{$rowLog['id']}</td>
-		  <td class='ip'>{$rowLog['ip']}</td>
-   	      <td class='ua'>{$rowLog['useragent']}</td>	
-          <td class='ref'>{$rowLog['referrer']}</td>	
-          <td class='at'>{$rowLog['access_time']}</td>
+	      <td class='id'>{$rowLog['0']}</td>
+		  <td class='ip'>{$rowLog['1']}</td>
+   	      <td class='ua'>{$rowLog['2']}</td>	
+          <td class='ref'>{$rowLog['3']}</td>	
+          <td class='at'>{$rowLog['4']}</td>
 	      </tr>\n";
 }
 echo "</tbody>
       </table>\n";
 
-//*** подсчёт количество записей в базе,который записывается в масив count прямо в базе,и возвращается переменной в виде масива.
-$result_found_rows = $dbh->query("SELECT FOUND_ROWS() as `count`")->fetch();
 //*** показать количство записей в базе данных 
 echo "<table class='allnum'>
 	  <tbody>
-      <tr class='alnumTrHead'>
-      <th class='alnumThHead'>Всего записей:</th>
+      <tr>
+      <th class='alnumThHead'>Всего записей:   {$total_pages}</th>
       </tr>
-	  <tr class='alnumTrBody'>	
-	  <td class='alnumTdBody'>{$result_found_rows['count']}</td>	
-	  </tr>
 	  </tbody>
 	  </table>
 	  </div>\n";
-//*** начинаеться пагинатор TODO! дописать пагинатор так чтобы страницы выводил блоками в одну линию
-//$allItems = 0;
-	$html = NULL;
-	$pageCount = 0;			
-    //*** Здесь округляем в большую сторону, потому что остаток
-    //*** от деления - кол-во страниц тоже нужно будет показать
-    //*** на ещё одной странице.
-    $pageCount = ceil($result_found_rows['count'] / $limit);
-    //*** Начинаем с нуля! Это даст нам правильные смещения для БД
-    for($i = 0;$i < $pageCount;$i++){
-        //*** Здесь ($i * $limit) - вычисляет нужное для каждой страницы  смещение,
-        //*** а ($i + 1) - для того что бы нумерация страниц начиналась с 1, а не с 0
-        //*** если после ли поставить "\n". то возникает интересный глюк ефект в меню пагинатора
-        $html .= '<a href="admip.php?start='.($i * $limit).'">'.($i + 1)."</a>";
-    }
-//*** Собственно выводим на экран:
-echo '<div id="pagination">'.$html."</div>\n";
 
+// Initial page num setup
+if($page == 0 or !is_numeric($page)){
+	$page = 1;
+}
+$prev = $page - 1;
+$next = $page + 1;
+$lastpage = ceil($total_pages/$limit);
+$LastPagem1 = $lastpage - 1;
+
+$paginate = '';
+if($lastpage > 1){
+	$paginate .= "<div class='paginate'>";
+
+	//*** Previous
+	$paginate.= $page > 1 ? "<a href='$targetpage?page=$prev'>Предидущая</a>" : "<span class='disabled'>Предидущая</span>";
+
+	// Pages
+	if($lastpage < 7 + ($stages * 2)){	// Not enough pages to breaking it up
+		for($counter = 1; $counter <= $lastpage; $counter++){
+			$paginate.= $counter == $page ? "<span class='current'>$counter</span>": "<a href='$targetpage?page=$counter'>$counter</a>";
+		}
+	}elseif($lastpage > 5 + ($stages * 2)){	// Enough pages to hide a few?
+		// Beginning only hide later pages
+		if($page < 1 + ($stages * 2)){
+			for ($counter = 1; $counter < 4 + ($stages * 2); $counter++){
+				$paginate.= $counter==$page?"<span class='current'>$counter</span>":"<a href='$targetpage?page=$counter'>$counter</a>";
+			}
+			$paginate.= "...";
+			$paginate.= "<a href='$targetpage?page=$LastPagem1'>$LastPagem1</a>";
+			$paginate.= "<a href='$targetpage?page=$lastpage'>$lastpage</a>";
+		}
+		// Middle hide some front and some back
+		elseif($lastpage - ($stages * 2) > $page && $page > ($stages * 2)){
+			$paginate.= "<a href='$targetpage?page=1'>1</a>";
+			$paginate.= "<a href='$targetpage?page=2'>2</a>";
+			$paginate.= "...";
+			for ($counter = $page - $stages; $counter <= $page + $stages; $counter++){
+				$paginate.= $counter==$page?"<span class='current'>$counter</span>":"<a href='$targetpage?page=$counter'>$counter</a>";
+			}
+			$paginate.= "...";
+			$paginate.= "<a href='$targetpage?page=$LastPagem1'>$LastPagem1</a>";
+			$paginate.= "<a href='$targetpage?page=$lastpage'>$lastpage</a>";
+		}
+		// End only hide early pages
+		else{
+			$paginate.= "<a href='$targetpage?page=1'>1</a>";
+			$paginate.= "<a href='$targetpage?page=2'>2</a>";
+			$paginate.= "...";
+			for ($counter = $lastpage - (2 + ($stages * 2)); $counter <= $lastpage; $counter++){
+				$paginate.= $counter==$page?"<span class='current'>$counter</span>":"<a href='$targetpage?page=$counter'>$counter</a>";
+			}
+		}
+	}
+
+	//*** Next
+	$paginate.= $page < $counter - 1 ? "<a href='$targetpage?page=$next'>Следующая</a>" : "<span class='disabled'>Следующая</span>";
+
+	$paginate.= "</div>";
+}
+//*** выводим строку пагинатора
+echo $paginate;
 ?>
 
 <div class="tableCenter">
