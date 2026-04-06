@@ -108,7 +108,7 @@ If you find this project useful, consider giving it a ⭐
 [![Donate](https://img.shields.io/badge/☕%20Donate%20Me-FF813F?style=for-the-badge&logo=buymeacoffee&logoColor=white)](https://donatello.to/MichailKubrak?g=coffee)
 
 
-########################################
+################## RU ######################
 # PHP IP Logger
 
 Лёгкий PHP-логгер, который сохраняет данные о посетителях в базу данных.
