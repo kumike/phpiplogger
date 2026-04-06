@@ -56,7 +56,7 @@ After installation, include the logger in any page where you want to track visit
 Add this line to your PHP file (e.g. `index.php`, `header.php`, or any other page):
 
 ```php id="m4n5o6"
-<?php require_once('phpipbot/phpiplogger/ip.php'); ?>
+<?php require_once('phpiplogger/ip.php'); ?>
 ```
 
 📍 Recommended placement:
@@ -167,7 +167,7 @@ http://your-domain/install.php
 Добавьте эту строку в PHP-файл (например `index.php`, `header.php` или любую другую страницу):
 
 ```php id="x7y8z9"
-<?php require_once('phpipbot/phpiplogger/ip.php'); ?>
+<?php require_once('phpiplogger/ip.php'); ?>
 ```
 
 📍 Рекомендуется размещать:
